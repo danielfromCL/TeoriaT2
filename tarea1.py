@@ -6,3 +6,6 @@ texto = open('text.src', "r")
 #si tiene -> seguimos hasta encontra otro "("
 #no tiene -> sabemos que lo que esta entre ese ( y el ) es una expresion
 
+
+ER.close()
+texto.close()
