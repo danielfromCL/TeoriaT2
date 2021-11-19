@@ -4,23 +4,22 @@
 %}
 
 %%
-/* Integer tokens */
+
 "-"     { return SUB; }     // Reduce  al producto de n por -1
 "+"     { return ADD; }     // Reduce a la suma de n1 mas n2
 "*"     { return MUL; }     // Reduce al producto de n1 por n2
 
-/* Boolean tokens */
 "<"     { return LESSTHAN;} // Reduce a \true si n1 es menor que n2, y a \false si no
 "="     { return EQUAL; }   // Reduce a \true si n1 es igual a n2, y a \false si no
 "\\and"  { return AND; }    // Need to escape BACKSLASH TODO
 "\\not"  { return NOT; }    // Need to escape BACKSLASH TODO
 "\\if"   { return IF; }      // Need to escape BACKSLASH TODO
 
-/* String tokens */
+
 "."     { return CONCAT; }    // Reduce a s1 concatenado a s2
 "|"     { return LEN;}      // Reduce al largo de s1
 
-/* AAAAAA tokens */
+
 "("     { return OP; }      // 
 ")"     { return CP; }      //  
 [0-9]+  { yylval.numval = atoi(yytext); return NUMBER; } // En yytext queda el puntero a donde quedamos en el texto, luego del matching anterior.
