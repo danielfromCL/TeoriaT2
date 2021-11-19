@@ -1,5 +1,6 @@
 %{
 #include "interprete.tab.h"
+#include <string.h>
 // Abajo de este corchete pueden ir macros y otras cosas.
 %}
 
@@ -22,8 +23,9 @@
 
 "("     { return OP; }      // 
 ")"     { return CP; }      //  
-[0-9]+  { yylval.numval = atoi(yytext); return NUMBER; } // En yytext queda el puntero a donde quedamos en el texto, luego del matching anterior.
-[a-zA-Z]+ { sscanf(yytext, "%s", yylval.name); return  STRING; }
+[0-1]   { yylval.bexpr = atoi(yytext); return BOOL; }
+[0-9]+  { yylval.nexpr = atoi(yytext); return NUMBER; } // En yytext queda el puntero a donde quedamos en el texto, luego del matching anterior.
+[a-zA-Z]+ { sscanf(yytext, "%s", yylval.sexpr); return  STRING; }
 \n      { return EOL; } // Lo que queda en yylval.numval es llamado valor semántico. Por ejemplo, 10 produce el token NUMBER con valor 10.
 [ \t]   ;
 .       { printf("Error. Invalid character.\n"); } // . matchea cualquier simbolo. En este caso está al final, asi que no puede matchear + por ejemplo. Pero si puede matchear a.
