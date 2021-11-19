@@ -82,7 +82,7 @@ union YYSTYPE
 
 int nexpr;
 char* sexpr;
-int bexpr;
+char* bexpr;
 
 
 #line 89 "interprete.tab.h"

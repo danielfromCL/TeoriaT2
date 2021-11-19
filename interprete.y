@@ -10,7 +10,7 @@ void yyerror(char *s);
 %union {
 int nexpr;
 char* sexpr;
-int bexpr;
+char* bexpr;
 
 }
 
@@ -43,20 +43,20 @@ input: // Aqui hay una regla vacia. Junto con la siguiente permiten implementar 
  | input numexp EOL { printf("= %d\n", $2); }
  ;
 numexp: NUMBER // Si no se especifica nada $$ = $1. OJO, todo esto trabaja de manera recursiva.
- | OP numexp ADD numexp  CP { $$ = $2 + $4; } // $$ valor semántico del primer numexp.
- | OP numexp MUL numexp  CP { $$ = $2 * $4; }
+ | OP numexp ADD numexp CP { $$ = $2 + $4; } // $$ valor semántico del primer numexp.
+ | OP numexp MUL numexp CP { $$ = $2 * $4; }
  | OP numexp SUB numexp  CP { $$ = $2 - $4; }
  | LEN strexp LEN { $$ = strlen($2); }
+ | OP IF bexp numexp numexp CP {$$ = ($3 == "\\true") ? $4 : $5; }
  ;
  bexp: BOOL
- | OP numexp LESSTHAN numexp CP { $$ = ($2 < $4) ? 1 : 0; }
- | OP numexp EQUAL numexp CP {$$ = ($2 == $4) ? 1 : 0; }
- | OP bexp AND bexp CP  {$$ = (($2 == 1) && ($4 == 1)) ? 1: 0; }
- | OP NOT bexp CP {$$ = ($3 == 1) ? 0 : 1; }
- | OP IF bexp numexp numexp {$$ = ($3 == 1) ? $4 : $5; }
+ | OP numexp LESSTHAN numexp CP { $$ = ($2 < $4) ? "\\true" : "\\false"; }
+ | OP numexp EQUAL numexp CP {$$ = ($2 == $4) ? "\\true" : "\\false"; }
+ | OP bexp AND bexp CP  {$$ = (($2 == "\\true") && ($4 == "\\true")) ? "\\true": "\\false"; }
+ | OP NOT bexp CP {$$ = ($3 == "\\true") ? "\\false" : "\\true"; }
    ;
  strexp: STRING //
- | OP IF bexp strexp strexp CP {$$ = ($3 == 1) ? $4 : $5; }
+ | OP IF bexp strexp strexp CP {$$ = ($3 == "\\true") ? $4 : $5; }
  | OP strexp CONCAT strexp CP { $$ = strcat($2, $4);}
  ;
 

@@ -23,7 +23,8 @@
 
 "("     { return OP; }      // 
 ")"     { return CP; }      //  
-[0-1]   { yylval.bexpr = atoi(yytext); return BOOL; }
+"\\true"  { return BOOL; }
+"\\false" { return BOOL; }
 [0-9]+  { yylval.nexpr = atoi(yytext); return NUMBER; } // En yytext queda el puntero a donde quedamos en el texto, luego del matching anterior.
 [a-zA-Z]+ { sscanf(yytext, "%s", yylval.sexpr); return  STRING; }
 \n      { return EOL; } // Lo que queda en yylval.numval es llamado valor semántico. Por ejemplo, 10 produce el token NUMBER con valor 10.
