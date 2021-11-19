@@ -49,15 +49,15 @@ numexp: NUMBER // Si no se especifica nada $$ = $1. OJO, todo esto trabaja de ma
  | LEN strexp LEN { $$ = strlen($2); }
  ;
  bexp: BOOL
-  | OP numexp LESSTHAN numexp CP { $$ = ($2 < $4) ? 1 : 0; }
-  | OP numexp EQUAL numexp CP {$$ = ($2 == $4) ? 1 : 0; }
-  | OP bexp AND bexp CP  {$$ = (($2 == 1) && ($4 == 1)) ? 1: 0; }
-  | OP NOT bexp CP {$$ = ($3 == 1) ? 0 : 1; }
-  | OP IF bexp numexp numexp {$$ = ($3 == 1) ? $4 : $5; }
- ;
+ | OP numexp LESSTHAN numexp CP { $$ = ($2 < $4) ? 1 : 0; }
+ | OP numexp EQUAL numexp CP {$$ = ($2 == $4) ? 1 : 0; }
+ | OP bexp AND bexp CP  {$$ = (($2 == 1) && ($4 == 1)) ? 1: 0; }
+ | OP NOT bexp CP {$$ = ($3 == 1) ? 0 : 1; }
+ | OP IF bexp numexp numexp {$$ = ($3 == 1) ? $4 : $5; }
+   ;
  strexp: STRING //
-  | OP IF bexp strexp strexp CP {$$ = ($3 == 1) ? $4 : $5; }
-  | OP strexp CONCAT strexp CP { $$ = strcat($2, $4);}
+ | OP IF bexp strexp strexp CP {$$ = ($3 == 1) ? $4 : $5; }
+ | OP strexp CONCAT strexp CP { $$ = strcat($2, $4);}
  ;
 
 %% 

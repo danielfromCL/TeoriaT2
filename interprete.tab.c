@@ -1141,43 +1141,43 @@ yyreduce:
 
   case 10: /* bexp: OP numexp LESSTHAN numexp CP  */
 #line 52 "interprete.y"
-                                 { (yyval.bexpr) = ((yyvsp[-3].nexpr) < (yyvsp[-1].nexpr)) ? 1 : 0; }
+                                { (yyval.bexpr) = ((yyvsp[-3].nexpr) < (yyvsp[-1].nexpr)) ? 1 : 0; }
 #line 1146 "interprete.tab.c"
     break;
 
   case 11: /* bexp: OP numexp EQUAL numexp CP  */
 #line 53 "interprete.y"
-                              {(yyval.bexpr) = ((yyvsp[-3].nexpr) == (yyvsp[-1].nexpr)) ? 1 : 0; }
+                             {(yyval.bexpr) = ((yyvsp[-3].nexpr) == (yyvsp[-1].nexpr)) ? 1 : 0; }
 #line 1152 "interprete.tab.c"
     break;
 
   case 12: /* bexp: OP bexp AND bexp CP  */
 #line 54 "interprete.y"
-                         {(yyval.bexpr) = (((yyvsp[-3].bexpr) == 1) && ((yyvsp[-1].bexpr) == 1)) ? 1: 0; }
+                        {(yyval.bexpr) = (((yyvsp[-3].bexpr) == 1) && ((yyvsp[-1].bexpr) == 1)) ? 1: 0; }
 #line 1158 "interprete.tab.c"
     break;
 
   case 13: /* bexp: OP NOT bexp CP  */
 #line 55 "interprete.y"
-                   {(yyval.bexpr) = ((yyvsp[-1].bexpr) == 1) ? 0 : 1; }
+                  {(yyval.bexpr) = ((yyvsp[-1].bexpr) == 1) ? 0 : 1; }
 #line 1164 "interprete.tab.c"
     break;
 
   case 14: /* bexp: OP IF bexp numexp numexp  */
 #line 56 "interprete.y"
-                             {(yyval.bexpr) = ((yyvsp[-2].bexpr) == 1) ? (yyvsp[-1].nexpr) : (yyvsp[0].nexpr); }
+                            {(yyval.bexpr) = ((yyvsp[-2].bexpr) == 1) ? (yyvsp[-1].nexpr) : (yyvsp[0].nexpr); }
 #line 1170 "interprete.tab.c"
     break;
 
   case 16: /* strexp: OP IF bexp strexp strexp CP  */
 #line 59 "interprete.y"
-                                {(yyval.sexpr) = ((yyvsp[-3].bexpr) == 1) ? (yyvsp[-2].sexpr) : (yyvsp[-1].sexpr); }
+                               {(yyval.sexpr) = ((yyvsp[-3].bexpr) == 1) ? (yyvsp[-2].sexpr) : (yyvsp[-1].sexpr); }
 #line 1176 "interprete.tab.c"
     break;
 
   case 17: /* strexp: OP strexp CONCAT strexp CP  */
 #line 60 "interprete.y"
-                               { (yyval.sexpr) = strcat((yyvsp[-3].sexpr), (yyvsp[-1].sexpr));}
+                              { (yyval.sexpr) = strcat((yyvsp[-3].sexpr), (yyvsp[-1].sexpr));}
 #line 1182 "interprete.tab.c"
     break;
 
