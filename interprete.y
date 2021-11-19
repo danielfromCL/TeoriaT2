@@ -29,7 +29,7 @@ int bexpr;
 %type <nexpr> numexp    // El valor al que reducimos una expresión numerica es un valor numérico.
 %type <sexpr> STRING    // El valor semántico de un STRING es un string.
 %type <sexpr> strexp    // El valor al que reducimos una expresión literal es un string.
-%type <bexpr> NUMBER    // El valor semántico de un NUMBER es un valor numérico.
+%type <bexpr> BOOL   // El valor semántico de un NUMBER es un valor numérico.
 %type <bexpr> bexp      // El valor al que reducimos una expresión boleana es un valor numerico.
 
 
@@ -45,7 +45,7 @@ numexp: NUMBER // Si no se especifica nada $$ = $1. OJO, todo esto trabaja de ma
  | OP numexp SUB numexp  CP { $$ = $2 - $4; }
  | LEN strexp LEN { $$ = strlen($2); }
  ;
- bexp: NUMBER
+ bexp: BOOL
    OP nexpr LESSTHAN nexpr CP { $$ = ($2 < $4) ? 1 : 0; }
    OP nexpr EQUAL nexpr CP {$$ = ($2 == $4) ? 1 : 0; }
    OP bexp AND bexp CP  {$$ = (($2 == 1) && ($4 == 1)) ? 1: 0; }
