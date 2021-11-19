@@ -78,7 +78,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 8 "interprete.y"
+#line 10 "interprete.y"
 
 int nexpr;
 char* sexpr;

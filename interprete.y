@@ -2,6 +2,8 @@
 %{
 #include <stdio.h>
 #include <string.h>
+int yylex();
+void yyerror(char *s);
 %}
 
 // Tipos
@@ -67,7 +69,6 @@ int main(int argc, char **argv) {
 }
 
 // Codigo para mensajes de error.
-int yyerror(char *s) {
+void yyerror(char *s) {
   fprintf(stderr, "error: %s\n", s);
-  return 0;
 }

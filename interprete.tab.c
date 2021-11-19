@@ -71,8 +71,10 @@
 
 #include <stdio.h>
 #include <string.h>
+int yylex();
+void yyerror(char *s);
 
-#line 76 "interprete.tab.c"
+#line 78 "interprete.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -505,8 +507,8 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    40,    40,    41,    43,    44,    45,    46,    47,    49,
-      50,    51,    52,    53,    54,    56,    57,    58
+       0,    42,    42,    43,    45,    46,    47,    48,    49,    51,
+      52,    53,    54,    55,    56,    58,    59,    60
 };
 #endif
 
@@ -1108,79 +1110,79 @@ yyreduce:
   switch (yyn)
     {
   case 3: /* input: input numexp EOL  */
-#line 41 "interprete.y"
+#line 43 "interprete.y"
                     { printf("= %d\n", (yyvsp[-1].nexpr)); }
-#line 1114 "interprete.tab.c"
+#line 1116 "interprete.tab.c"
     break;
 
   case 5: /* numexp: OP numexp ADD numexp CP  */
-#line 44 "interprete.y"
+#line 46 "interprete.y"
                             { (yyval.nexpr) = (yyvsp[-3].nexpr) + (yyvsp[-1].nexpr); }
-#line 1120 "interprete.tab.c"
+#line 1122 "interprete.tab.c"
     break;
 
   case 6: /* numexp: OP numexp MUL numexp CP  */
-#line 45 "interprete.y"
+#line 47 "interprete.y"
                             { (yyval.nexpr) = (yyvsp[-3].nexpr) * (yyvsp[-1].nexpr); }
-#line 1126 "interprete.tab.c"
+#line 1128 "interprete.tab.c"
     break;
 
   case 7: /* numexp: OP numexp SUB numexp CP  */
-#line 46 "interprete.y"
+#line 48 "interprete.y"
                             { (yyval.nexpr) = (yyvsp[-3].nexpr) - (yyvsp[-1].nexpr); }
-#line 1132 "interprete.tab.c"
+#line 1134 "interprete.tab.c"
     break;
 
   case 8: /* numexp: LEN strexp LEN  */
-#line 47 "interprete.y"
+#line 49 "interprete.y"
                   { (yyval.nexpr) = strlen((yyvsp[-1].sexpr)); }
-#line 1138 "interprete.tab.c"
+#line 1140 "interprete.tab.c"
     break;
 
   case 10: /* bexp: OP numexp LESSTHAN numexp CP  */
-#line 50 "interprete.y"
+#line 52 "interprete.y"
                                  { (yyval.bexpr) = ((yyvsp[-3].nexpr) < (yyvsp[-1].nexpr)) ? 1 : 0; }
-#line 1144 "interprete.tab.c"
+#line 1146 "interprete.tab.c"
     break;
 
   case 11: /* bexp: OP numexp EQUAL numexp CP  */
-#line 51 "interprete.y"
+#line 53 "interprete.y"
                               {(yyval.bexpr) = ((yyvsp[-3].nexpr) == (yyvsp[-1].nexpr)) ? 1 : 0; }
-#line 1150 "interprete.tab.c"
+#line 1152 "interprete.tab.c"
     break;
 
   case 12: /* bexp: OP bexp AND bexp CP  */
-#line 52 "interprete.y"
+#line 54 "interprete.y"
                          {(yyval.bexpr) = (((yyvsp[-3].bexpr) == 1) && ((yyvsp[-1].bexpr) == 1)) ? 1: 0; }
-#line 1156 "interprete.tab.c"
+#line 1158 "interprete.tab.c"
     break;
 
   case 13: /* bexp: OP NOT bexp CP  */
-#line 53 "interprete.y"
+#line 55 "interprete.y"
                    {(yyval.bexpr) = ((yyvsp[-1].bexpr) == 1) ? 0 : 1; }
-#line 1162 "interprete.tab.c"
+#line 1164 "interprete.tab.c"
     break;
 
   case 14: /* bexp: OP IF bexp numexp numexp  */
-#line 54 "interprete.y"
+#line 56 "interprete.y"
                              {(yyval.bexpr) = ((yyvsp[-2].bexpr) == 1) ? (yyvsp[-1].nexpr) : (yyvsp[0].nexpr); }
-#line 1168 "interprete.tab.c"
+#line 1170 "interprete.tab.c"
     break;
 
   case 16: /* strexp: OP IF bexp strexp strexp CP  */
-#line 57 "interprete.y"
+#line 59 "interprete.y"
                                 {(yyval.sexpr) = ((yyvsp[-3].bexpr) == 1) ? (yyvsp[-2].sexpr) : (yyvsp[-1].sexpr); }
-#line 1174 "interprete.tab.c"
+#line 1176 "interprete.tab.c"
     break;
 
   case 17: /* strexp: OP strexp CONCAT strexp CP  */
-#line 58 "interprete.y"
+#line 60 "interprete.y"
                                { (yyval.sexpr) = strcat((yyvsp[-3].sexpr), (yyvsp[-1].sexpr));}
-#line 1180 "interprete.tab.c"
+#line 1182 "interprete.tab.c"
     break;
 
 
-#line 1184 "interprete.tab.c"
+#line 1186 "interprete.tab.c"
 
       default: break;
     }
@@ -1374,7 +1376,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 61 "interprete.y"
+#line 63 "interprete.y"
  
 
 // Codigo principal que llama a yyparse().
@@ -1384,7 +1386,6 @@ int main(int argc, char **argv) {
 }
 
 // Codigo para mensajes de error.
-int yyerror(char *s) {
+void yyerror(char *s) {
   fprintf(stderr, "error: %s\n", s);
-  return 0;
 }
