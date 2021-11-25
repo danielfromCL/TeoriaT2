@@ -23,10 +23,10 @@
 
 "("     { return OP; }      // 
 ")"     { return CP; }      //  
-"\\true"  { return BOOL; }
-"\\false" { return BOOL; }
+"\\true"  { yylval.bexpr = strdup(yytext); return BOOL; }
+"\\false" { yylval.bexpr = strdup(yytext);return BOOL; }
 [0-9]+  { yylval.nexpr = atoi(yytext); return NUMBER; } // En yytext queda el puntero a donde quedamos en el texto, luego del matching anterior.
-[a-zA-Z]+ { sscanf(yytext, "%s", yylval.sexpr); return  STRING; }
+[a-zA-Z]+ { yylval.sexpr = strdup(yytext); return  STRING; }
 \n      { return EOL; } // Lo que queda en yylval.numval es llamado valor semántico. Por ejemplo, 10 produce el token NUMBER con valor 10.
 [ \t]   ;
 .       { printf("Error. Invalid character.\n"); } // . matchea cualquier simbolo. En este caso está al final, asi que no puede matchear + por ejemplo. Pero si puede matchear a.
