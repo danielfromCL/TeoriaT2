@@ -45,6 +45,7 @@ input: // Aqui hay una regla vacia. Junto con la siguiente permiten implementar 
  | input bexp EOL { printf("= %s\n", $2); }
  ;
 numexp: NUMBER // Si no se especifica nada $$ = $1. OJO, todo esto trabaja de manera recursiva.
+ | OP SUB numexp CP { $$ = $3 * (-1);}
  | OP numexp ADD numexp CP { $$ = $2 + $4; } // $$ valor semántico del primer numexp.
  | OP numexp MUL numexp CP { $$ = $2 * $4; }
  | OP numexp SUB numexp  CP { $$ = $2 - $4; } 
