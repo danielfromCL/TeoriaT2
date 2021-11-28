@@ -14,7 +14,7 @@ char* bexpr;
 
 }
 
-// TOKENS que genera el analizador lexico (calc.l)
+// TOKENS que genera el analizador lexico (interprete.l)
 %token NUMBER
 %token ADD MUL SUB 
 %token OP CP
